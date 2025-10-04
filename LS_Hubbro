@@ -1,0 +1,756 @@
+local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Lightsmoke666/LS_HubPro/refs/heads/main/windui.txt"))()
+
+-- Test
+local Confirmed = false
+
+-- WindUI:Popup({
+    -- Title = "Lightsmoke_Hub",
+    -- Icon = "rbxassetid://71391084474065",
+    -- IconThemed = true,
+    -- Background = "rbxassetid://11332993674",
+    -- Content = "欢迎使用 LS_Hub",
+    -- Buttons = {
+        -- {
+            -- Title = "进入Hub。",
+            -- Icon = "arrow-right",
+            -- Callback = function() Confirmed = true end,
+            -- Variant = "Primary",
+        -- }
+    -- }
+-- })
+
+-- repeat wait() until Confirmed
+
+--
+local Window = WindUI:CreateWindow({
+    Title = "Lightsmoke_Hub",
+    Icon = "crown",
+    IconThemed = true,
+    Author = "轻烟    V3.0Pro   (完美版)" ,
+    Folder = "MyGUI",
+    Size = UDim2.fromOffset(490,320),
+    Transparent = true,
+    Theme = "Dark",
+    User = { Enabled = true },
+    SideBarWidth = 200,
+    ScrollBarEnabled = true,
+    Background = "rbxassetid://14406049809",
+})
+
+Window:SetBackgroundImageTransparency(0.7)
+Window:EditOpenButton({
+    Title = "轻烟Hub",
+    Icon = "crown",
+    CornerRadius = UDim.new(5,20),
+    StrokeThickness = 1.5,
+    Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromHex("FF0000")),  
+    ColorSequenceKeypoint.new(0.14, Color3.fromHex("FF7F00")),  
+    ColorSequenceKeypoint.new(0.28, Color3.fromHex("FFFF00")), 
+    ColorSequenceKeypoint.new(0.42, Color3.fromHex("00FF00")),  
+    ColorSequenceKeypoint.new(0.56, Color3.fromHex("0000FF")),  
+    ColorSequenceKeypoint.new(0.70, Color3.fromHex("4B0082")),  
+    ColorSequenceKeypoint.new(0.84, Color3.fromHex("9400D3")),  
+    ColorSequenceKeypoint.new(1.00, Color3.fromHex("FF0000")) 
+}),
+    Draggable = true,
+})
+
+
+local Tabs = {
+    Main = Window:Tab({ Title = "主页", Icon = "rbxassetid://6026568198" }),
+    GongGao = Window:Tab({ Title = "公告----建议常看", Icon = "star"}),
+    }
+
+Tabs.Main:Paragraph({
+    Title = "欢迎使用 LS_Hub",
+    Desc = "QQ群 1057220534",
+    Image = "https://c-ssl.duitang.com/uploads/blog/202310/21/oVS4gnBVIg4A1yJ.jpg",
+    ImageSize = 50,
+    Thumbnail = "https://c-ssl.duitang.com/uploads/blog/202103/27/20210327131203_74b6b.jpg",
+    ThumbnailSize = 130,
+})
+
+Tabs.Main:Paragraph({
+    Title = "您当前服务器ID: " .. tostring(game.PlaceId),
+    Callback = function()
+        setclipboard(tostring(game.GameId))
+    end
+})
+Tabs.Main:Paragraph({
+    Title = "你好呀,LS_Hub使用者",
+    Desc = "如果无聊就来群里吧,会有人陪你的哦,公告可以加入群聊",
+    Thumbnail = "https://www.toopic.cn/dnbz/15632.html",
+    ThumbnailSize = 100,
+})
+
+
+Tabs.GongGao:Paragraph({
+    Title = "2025年10月3日公告",
+    Desc = "轻烟退网了,目前更新制作者为:特饮,星焉",
+})
+Tabs.GongGao:Paragraph({
+    Title = "2025年9月29日公告",
+    Desc = "1、有问题请联系群主,2、想要玩啥服务器的脚本都给可以投稿私信",
+})
+Tabs.GongGao:Paragraph({
+    Title = "2025年9月30日更新日志",
+    Desc = "吃掉世界功能完全修复，已无报错   Ohio自动功能完全优化所有功能无报错",
+})
+Tabs.GongGao:Paragraph({
+    Title = "2025年9月30日更新日志",
+    Desc = "ohio增加超多功能，请自行体验,修复了Doors脚本失效问题",
+})
+Tabs.GongGao:Button({
+    Title = "复制群主QQ号",
+    Desc = "建议以及投稿都能和我说",
+    Callback = function() 
+        local groupNumber = "2796579186"
+        if setclipboard then
+            setclipboard(groupNumber)
+            print("已复制粉丝群号: " .. groupNumber)
+            WindUI:Notify({
+                Title = "复制成功",
+                Desc = "粉丝群号 " .. groupNumber .. " 已复制到剪贴板啦,可以去qq搜索了哦",
+                Icon = "check",
+                Duration = 3
+            })
+        else
+            WindUI:Notify({
+                Title = "复制失败",
+                Desc = "无法访问剪贴板功能",
+                Icon = "x",
+                Duration = 3
+            })
+        end
+    end
+})
+
+Tabs.GongGao:Button({
+    Title = "复制粉丝群号",
+    Desc = "点击复制QQ群号：1057220534",
+    Callback = function() 
+        local groupNumber = "1057220534"
+        if setclipboard then
+            setclipboard(groupNumber)
+            print("已复制群主QQ号: " .. groupNumber)
+            WindUI:Notify({
+                Title = "复制成功",
+                Desc = "群主QQ号 " .. groupNumber .. " 已复制到剪贴板啦,可以去qq搜索了哦",
+                Icon = "check",
+                Duration = 3
+            })
+        else
+            WindUI:Notify({
+                Title = "复制失败",
+                Desc = "无法访问剪贴板功能",
+                Icon = "x",
+                Duration = 3
+            })
+        end
+    end
+})
+
+Tabs.GongGao:Button({
+    Title = "加入QQ群",
+    Desc = "点击复制QQ群链接",
+    Callback = function() 
+        local qqUrl = "https://qun.qq.com/universal-share/share?ac=1&authKey=T2013Kh5z7QJAYjAVJInZoW7uERTuJl6rpTIpMRVTW8ybc3Cr15%2FqE9qW6%2B5Z6Z7&busi_data=eyJncm91cENvZGUiOiIxMDU3MjIwNTM0IiwidG9rZW4iOiJDTDhuc3RFR2pob3lxL1NWSGlmLzdmZEtjNHlOVVFRRmViL0xpY09yUzMxdVNYakNHREp6R2p5Z3A3d0JCMDQ4IiwidWluIjoiMjc5NjU3OTE4NiJ9&data=wJM7p_LTQzr8E6_3SBQFv_KNsQWay8TA2CyfsrC_Kga_vAwua4hCzE8XDkuiA9GsDSHDyNP6nJqg1EWfy0ui5Q&svctype=4&tempid=h5_group_info"
+        setclipboard(qqUrl)
+        WindUI:Notify({
+            Title = "链接已复制成功",
+            Content = "QQ群链接已复制到剪贴板，请粘贴到浏览器打开",
+            Icon = "copy",
+            Duration = 5
+        })
+    end
+})
+
+local Tabs = {}
+
+do
+    Tabs.Main = Window:Section({
+        Title = "缝合脚本",
+        Desc = "",
+        Opened = false,
+    })
+    
+    Tabs.QingYan = Window:Section({
+        Title = "轻烟自制QvQ",
+        Opened = false,
+    })
+    
+    Tabs.Other = Window:Section({
+        Title = "其他(比如画质啥的,都在这更新)",
+        Opened = false,
+        Locked = true,
+    })
+    
+    Tabs.TongYong = Window:Section({
+        Title = "通用功能(未更新)",
+        Desc = "",
+        Opened = false,
+        Locked = true,
+    })
+    
+end
+
+    Tabs.Script = Tabs.Main:Tab({ Title = "脚本中心", Icon = "type" })
+    Tabs.BladeBall = Tabs.Main:Tab({ Title = "刀刃球", Icon = "star" })
+    Tabs.Slap = Tabs.Main:Tab({ Title = "巴掌模拟器", Icon = "star" })
+    Tabs.Doors = Tabs.Main:Tab({ Title = "Doors", Icon = "star" })
+    Tabs.Nature = Tabs.Main:Tab({ Title = "自然灾害", Icon = "star" })
+    Tabs.Inkgame = Tabs.Main:Tab({ Title = "墨水游戏",Icon = "star"})
+    Tabs.nineye = Tabs.Main:Tab({ Title = "99夜",Icon = "star"})
+    
+---自制------
+
+    Tabs.renzhe = Tabs.QingYan:Tab({ Title = "忍者传奇",Icon = "star" })
+    Tabs.Speed = Tabs.QingYan:Tab({ Title = "极速传奇",Icon = "star" })
+    Tabs.LuckBox = Tabs.QingYan:Tab({ Title = "幸运方块",Icon = "star" })
+    Tabs.OneSword = Tabs.QingYan:Tab({ Title = "拔出一把剑",Icon = "star"})
+    Tabs.LSohio = Tabs.QingYan:Tab({ Title = "Ohio", Icon = "star"})
+    Tabs.EatWorld = Tabs.QingYan:Tab({ Title = "吃掉世界", Icon = "star"})
+    Tabs.LS_Hub = Tabs.QingYan:Tab({ Title = "旧版LS_Hub", Icon = "star"})
+Window:SelectTab(1)
+
+---脚本中心
+Tabs.Script:Button({
+    Title = "禁漫中心",
+    Desc = "",
+    Callback = function()
+        getgenv().LS="禁漫中心" 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dingding123hhh/ng/main/jmlllllllIIIIlllllII.lua"))()
+    end
+})
+
+Tabs.Script:Button({
+    Title = "情云脚本",
+    Desc = "",
+    Callback = function()
+        loadstring(utf8.char((function() 
+            return table.unpack({108,111,97,100,115,116,114,105,110,103,40,103,97,109,101,58,72,116,116,112,71,101,116,40,34,104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,67,104,105,110,97,81,89,47,45,47,109,97,105,110,47,37,69,54,37,56,51,37,56,53,37,69,52,37,66,65,37,57,49,34,41,41,40,41})
+        end)()))()
+    end
+})
+
+Tabs.Script:Button({
+    Title = "XK_Hub",
+    Desc = "",
+    Callback = function()
+        loadstring(game:HttpGet(('https://github.com/DevSloPo/DVES/raw/main/XK%20Hub')))()
+    end
+})
+
+Tabs.Script:Button({
+    Title = "皮脚本",
+    Desc = "",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/QQ1002100032-Roblox-Pi-script.lua"))()
+    end
+})
+
+
+--刀刃球脚本
+Tabs.BladeBall:Button({
+    Title = "ArgonHubX",
+    Desc = "英文脚本",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/AgentX771/ArgonHubX/main/Loader.lua"))()
+    end
+})
+
+Tabs.BladeBall:Button({
+    Title = "ArgonHub",
+    Desc = "汉化版",
+    Callback = function()
+    WindUI:Notify({
+            Title = "正在关闭之前的悬浮窗",
+            Icon = "info",
+            Duration = 2
+        })
+       wait(2)
+        if Window then
+            Window:Close()
+            Window = nil
+        end
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/atnew2025/Chinese-scripts/refs/heads/main/Argonhub-cn.txt"))()
+    end
+})
+
+--巴掌模拟器脚本
+Tabs.Slap:Button({
+    Title = "巴掌模拟器脚本",
+    Desc = "获得全部徽章手套(付费的除外)",
+    Callback = function()
+    loadstring(game:HttpGet('https://pastefy.app/lgEl3Mga/raw'))()
+    end
+})
+
+--doors 脚本
+Tabs.Doors:Button({
+    Title = "prohax",
+    Desc = "全英文",
+    Callback = function()
+    WindUI:Notify({
+            Title = "正在关闭之前的悬浮窗",
+            Icon = "info",
+            Duration = 2
+        })
+       wait(2)
+        if Window then
+            Window:Close()
+            Window = nil
+        end
+    getgenv().LibraryIs = "Obsidian" -- or Linoria  
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheHunterSolo1/Scripts/main/ProhaxV4"))()
+    end
+})
+
+Tabs.Doors:Button({
+    Title = "Mshax",
+    Desc = "Doors汉化脚本,请进入游戏后执行,不要大厅",
+    Callback = function()
+    WindUI:Notify({
+            Title = "正在关闭之前的悬浮窗",
+            Icon = "info",
+            Duration = 2
+        })
+       wait(2)
+        if Window then
+            Window:Close()
+            Window = nil
+        end
+loadstring(game:HttpGet("https://raw.githubusercontent.com/XxwanhexxX/prohax-mshax-v4.5-doors-Chinese/refs/heads/main/doors%20mxhax(prohax)%20Chinese"))()
+    end
+})
+
+-------自然灾害--------
+
+Tabs.Nature:Button({
+    Title = "黑洞V5",
+    Desc = "万象天引！",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ke9460394-dot/ugik/refs/heads/main/V5.txt"))()
+    end
+})
+
+--------墨水游戏------
+
+Tabs.Inkgame:Button({
+    Title = "Azure",
+    Desc = "未汉化但是很简洁可以看懂",
+    Callback = function()
+    WindUI:Notify({
+            Title = "正在关闭之前的悬浮窗",
+            Icon = "info",
+            Duration = 2
+        })
+       wait(2)
+        if Window then
+            Window:Close()
+            Window = nil
+        end
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ScripterVaz/InkGameAzure/main/Protected_7974105512464815.lua.txt"))()
+    end
+})
+
+----99夜-----
+Tabs.nineye:Button({
+    Title = "XA_Hub",
+    Desc = "中文脚本",
+    Callback = function()
+    WindUI:Notify({
+            Title = "正在关闭之前的悬浮窗",
+            Icon = "info",
+            Duration = 2
+        })
+       wait(2)
+        if Window then
+            Window:Close()
+            Window = nil
+        end
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Xingtaiduan/Script/refs/heads/main/Games/森林中的99夜.lua"))()
+    end
+})
+
+
+
+
+
+----------自制脚本--------------
+-----by轻烟
+-----ohio脚本----
+
+Tabs.LSohio:Button({
+    Title = "轻烟Hub",
+    Desc = "轻烟纯自制脚本,可以提建议",
+    Callback = function()
+        WindUI:Notify({
+            Title = "正在关闭之前的悬浮窗",
+            Icon = "info",
+            Duration = 2
+        })
+       wait(2)
+        if Window then
+            Window:Close()
+            Window = nil
+        end
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Lightsmoke666/LS_HubPro/refs/heads/main/轻烟ohio.txt"))()
+    end
+})
+-----拔出一把剑
+Tabs.OneSword:Toggle({
+    Title = "自动点击",
+    Value = false,
+    Desc = "",
+    Callback = function(state)
+        if state then
+            while true do
+                task.wait()
+ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Events"):WaitForChild("ClickEvent"):FireServer()
+            end
+        end
+    end
+})
+
+--幸运方块脚本
+Tabs.LuckBox:Toggle({
+    Title = "刷幸运方块并自动开启",
+    Value = false,
+    Desc = "打开后不可关闭",
+    Callback = function(state)
+        if state then
+            while true do
+                task.wait()
+                game:GetService("ReplicatedStorage"):WaitForChild("SpawnLuckyBlock"):FireServer()
+            end
+        end
+    end
+})
+
+-----吃掉世界
+
+Tabs.EatWorld:Button({
+    Title = "吃掉世界",
+    Value = false,
+    Desc = "更新日期2025年9月29日",
+    Callback = function()
+        WindUI:Notify({
+            Title = "正在关闭之前的悬浮窗",
+            Icon = "info",
+            Duration = 2
+        })
+       wait(2)
+        if Window then
+            Window:Close()
+            Window = nil
+        end
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Lightsmoke666/LS_HubPro/refs/heads/main/EatWorld.lua"))()
+    end
+})
+
+--------旧版LS_Hub------
+Tabs.LS_Hub:Button({
+    Title = "LS_Hub旧版本",
+    Desc = "卡密:QYZS666",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Lightsmoke666/LS_HubPro/refs/heads/main/LS_HubPro.lua"))()
+    end
+})
+Window:OnClose(function()
+    print("UI closed.")
+end)
+
+
+
+-- 创建刷资源的通用函数
+local function autoFarm(orbType, location)
+    return function(state)
+        if state then
+            -- 开启时启动循环
+            local connection
+            connection = game:GetService("RunService").Heartbeat:Connect(function()
+                local args = {"collectOrb", orbType, location}
+                game:GetService("ReplicatedStorage").rEvents.orbEvent:FireServer(unpack(args))
+            end)
+            
+            -- 保存连接以便关闭
+            getfenv(0)["_farmConnection_"..orbType] = connection
+        else
+            -- 关闭时停止循环
+            local connectionName = "_farmConnection_"..orbType
+            local connection = getfenv(0)[connectionName]
+            if connection then
+                connection:Disconnect()
+                getfenv(0)[connectionName] = nil
+            end
+        end
+    end
+end
+
+-- 刷速度按钮
+Tabs.Speed:Toggle({
+    Title = "刷速度",
+    Desc = "自动收集红色球体",
+    Default = false, -- 确保默认关闭
+    Callback = autoFarm("Red Orb", "City")
+})
+
+-- 刷钻石按钮
+Tabs.Speed:Toggle({
+    Title = "刷钻石",
+    Desc = "自动收集钻石",
+    Default = false, -- 确保默认关闭
+    Callback = autoFarm("Gem", "City")
+})
+
+-- 传送按钮（陈塘关）
+Tabs.Speed:Button({
+    Title = "传送到陈塘关",
+    Desc = "传送到主城区",
+    Callback = function()
+        pcall(function()
+            local plr = game.Players.LocalPlayer
+            if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+                plr.Character.HumanoidRootPart.CFrame = CFrame.new(2002.0133056640625, 1.2624330520629883, 985.2265625)
+            end
+        end)
+    end
+})
+
+-- 传送按钮（蜜雪冰城）
+Tabs.Speed:Button({
+    Title = "传送到蜜雪冰城",
+    Desc = "传送到冰雪区域",
+    Callback = function()
+        pcall(function()
+            local plr = game.Players.LocalPlayer
+            if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+                plr.Character.HumanoidRootPart.CFrame = CFrame.new(-9675.25, 59.63568115234375, 3783.50146484375)
+            end
+        end)
+    end
+})
+
+-- 传送按钮（魔丸山）
+Tabs.Speed:Button({
+    Title = "传送到魔丸山",
+    Desc = "传送到火山区域",
+    Callback = function()
+        pcall(function()
+            local plr = game.Players.LocalPlayer
+            if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+                plr.Character.HumanoidRootPart.CFrame = CFrame.new(-11052.4189453125, 217.59571838378906, 4898.76416015625)
+            end
+        end)
+    end
+})
+
+-- 传送按钮（申公豹）
+Tabs.Speed:Button({
+    Title = "传送到申公豹",
+    Desc = "传送到传奇公路",
+    Callback = function()
+        pcall(function()
+            local plr = game.Players.LocalPlayer
+            if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+                plr.Character.HumanoidRootPart.CFrame = CFrame.new(-13095.255859375, 217.59567260742188, 5905.240234375)
+            end
+        end)
+    end
+})
+
+
+
+local AutoSettings = {
+    AutoSwing = false,
+    AutoSell = false,
+
+}
+
+for k, v in pairs(AutoSettings) do
+    getgenv()[k] = v
+end
+
+local function teleportTo(placeCFrame)
+    local plyr = game.Players.LocalPlayer
+    if plyr.Character then
+        plyr.Character.HumanoidRootPart.CFrame = placeCFrame
+    end
+end
+
+local AutoFunctions = {
+    doBo = function()
+        spawn(function()
+            while AutoBo == true do
+                if not getgenv() then break end
+                teleportTo(game:GetService("Workspace").bossFolder.RobotBoss.UpperTorso.CFrame)
+                local args = {[1] = "swingKatana"}
+                game.Players.LocalPlayer:WaitForChild("ninjaEvent"):FireServer(unpack(args))
+                wait()
+            end
+        end)
+    end,
+
+    doBo1 = function()
+        spawn(function()
+            while AutoBo1 == true do
+                if not getgenv() then break end
+                teleportTo(game:GetService("Workspace").bossFolder.EternalBoss.UpperTorso.CFrame)
+                local args = {[1] = "swingKatana"}
+                game.Players.LocalPlayer:WaitForChild("ninjaEvent"):FireServer(unpack(args))
+                wait()
+            end
+        end)
+    end,
+
+    doBo2 = function()
+        spawn(function()
+            while AutoBo2 == true do
+                if not getgenv() then break end
+                teleportTo(game:GetService("Workspace").bossFolder.AncientMagmaBoss.UpperTorso.CFrame)
+                local args = {[1] = "swingKatana"}
+                game.Players.LocalPlayer:WaitForChild("ninjaEvent"):FireServer(unpack(args))
+                wait()
+            end
+        end)
+    end,
+
+    doE = function()
+        spawn(function()
+            while AutoE == true do
+                if not getgenv() then break end
+                local elements = {
+                    "Inferno", "Frost", "Lightning", "Electral Chaos",
+                    "Shadow Charge", "Masterful Wrath", "Shadowfire",
+                    "Eternity Storm", "Blazing Entity"
+                }
+                
+                for _, element in ipairs(elements) do
+                    local args = {[1] = element}
+                    game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("elementMasteryEvent"):FireServer(unpack(args))
+                    wait()
+                end
+            end
+        end)
+    end,
+
+    doSwing = function()
+        spawn(function()
+            while AutoSwing == true do
+                if not getgenv() then break end
+                local args = {[1] = "swingKatana"}
+                game.Players.LocalPlayer:WaitForChild("ninjaEvent"):FireServer(unpack(args))    
+                wait()
+            end
+        end)
+    end,
+
+    doS = function()
+        spawn(function()
+            while AutoS == true do
+                if not getgenv() then break end
+                local args = {[1] = "buyAllSwords", [2] = "Blazing Vortex Island"}
+                game.Players.LocalPlayer:WaitForChild("ninjaEvent"):FireServer(unpack(args))        
+                wait(0.5)
+            end
+        end)
+    end,
+
+    doB = function()
+        spawn(function()
+            while AutoB == true do
+                if not getgenv() then break end
+                local args = {[1] = "buyAllBelts", [2] = "Blazing Vortex Island"}
+                game.Players.LocalPlayer:WaitForChild("ninjaEvent"):FireServer(unpack(args))        
+                wait(0.5)
+            end
+        end)
+    end,
+
+    doR = function()
+        spawn(function()
+            while AutoR == true do
+                if not getgenv() then break end
+                local ranks = {
+                    "Grasshopper", "Apprentice", "Samurai", "Assassin", "Shadow",
+                    "Ninja", "Master Ninja", "Sensei", "Master Sensei", "Ninja Legend",
+                    "Master Of Shadows", "Immortal Assassin", "Eternity Hunter", "Shadow Legend", "Dragon Warrior",
+                    "Dragon Master", "Chaos Sensei", "Chaos Legend", "Master Of Elements", "Elemental Legend",
+                    "Ancient Battle Master", "Ancient Battle Legend", "Legendary Shadow Duelist", "Master Legend Assassin", "Mythic Shadowmaster",
+                    "Legendary Shadowmaster", "Awakened Scythemaster", "Awakened Scythe Legend", "Master Legend Zephyr", "Golden Sun Shuriken Master",
+                    "Golden Sun Shuriken Legend", "Dark Sun Samurai Legend", "Dragon Evolution Form I", "Dragon Evolution Form II", "Dragon Evolution Form III",
+                    "Dragon Evolution Form IV", "Dragon Evolution Form V", "Cybernetic Electro Master", "Cybernetic Electro Legend", "Shadow Chaos Assassin",
+                    "Shadow Chaos Legend", "Infinity Sensei", "Infinity Legend", "Aether Genesis Master Ninja", "Master Legend Sensei Hunter",
+                    "Skystorm Series Samurai Legend", "Master Elemental Hero", "Eclipse Series Soul Master", "Starstrike Master Sensei", "Evolved Series Master Ninja",
+                    "Dark Elements Guardian", "Elite Series Master Legend", "Infinity Shadows Master", "Lighting Storm Sensei",
+                    "Dark Elements Blademaster", "Rising Shadow Eternal Ninja", "Skyblade Ninja Master", "Shadow Storm Sensei", "Comet Strike Lion",
+                    "Cybernetic Azure Sensei", "Ultra Genesis Shadow"
+                }
+                
+                for i = 1, #ranks, 5 do
+                    for j = i, math.min(i+4, #ranks) do
+                        local args = {[1] = "buyRank", [2] = ranks[j]}
+                        game.Players.LocalPlayer:WaitForChild("ninjaEvent"):FireServer(unpack(args))
+                    end
+                    wait()
+                end
+            end
+        end)
+    end,
+
+    doSell = function()
+        spawn(function()
+            while AutoSell == true do
+                if not getgenv() then break end
+                local playerHead = game.Players.LocalPlayer.Character.Head
+                for _, v in pairs(game:GetService("Workspace").sellAreaCircles.sellAreaCircle16.circleInner:GetDescendants()) do
+                    if v.Name == "TouchInterest" and v.Parent then
+                        firetouchinterest(playerHead, v.Parent, 0)
+                        wait(0.1)
+                        firetouchinterest(playerHead, v.Parent, 1)
+                        break
+                    end
+                end
+            end
+        end)
+    end,
+
+    doC = function()
+        spawn(function()
+            while AutoC == true do
+                if not getgenv() then break end
+                local coinLocations = {
+                    game:GetService("Workspace").spawnedCoins.Valley["Pink Chi Crate"].CFrame,
+                    game:GetService("Workspace").spawnedCoins.Valley["Blue Chi Crate"].CFrame,
+                    game:GetService("Workspace").spawnedCoins.Valley["Chi Crate"].CFrame
+                }
+                
+                for _, location in ipairs(coinLocations) do
+                    teleportTo(location)
+                    wait(0.1)
+                end
+                wait()
+            end
+        end)
+    end
+}
+
+Tabs.renzhe:Toggle({
+    Title = "自动挥刀",
+    Icon = "check",
+    Callback = function(Value)
+getgenv().AutoSwing = Value
+            if Value then AutoFunctions.doSwing() end
+    end
+})
+
+Tabs.renzhe:Toggle({
+    Title = "自动卖出",
+    Icon = "check",
+    Callback = function(Value)
+getgenv().AutoSell = Value
+            if Value then AutoFunctions.doSell() end
+    end
+})
