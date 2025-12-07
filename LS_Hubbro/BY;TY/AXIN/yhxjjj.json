@@ -1,0 +1,32 @@
+{
+  "active": true,
+  "message": "LS HUB - 作者QQ: 1505731163",
+  "valid_keys": [
+    {
+      "key": "LSZZTY",
+      "used": false,
+      "device_id": "",
+      "user_id": "djsjdakjdjs",
+      "bind_time": "",
+      "expiry_time": "2025-12-07 15:20:59"
+    }
+  ],
+  "blocked_keys": [
+    "JYCNB665NB"
+  ],
+  "key_bindings": {
+    "LSZZTY": {
+      "device_id": "",
+      "user_id": "djsjdakjdjs",
+      "bind_time": "",
+      "used": false,
+      "expiry_time": "2025-12-07 15:20:59"
+    }
+  },
+  "settings": {
+    "max_devices_per_key": 1,
+    "allow_device_change": false,
+    "auto_block_on_suspicious": true
+  },
+  "version": "1.0.0"
+}
