@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Express Obfuscator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+    --bg:#05060a;
+    --panel:#0b0e16;
+    --border:#1b1f33;
+    --accent:#7c7cff;
+    --accent2:#00ffe1;
+    --text:#cfd3ff;
+    --danger:#ff4d6d;
+}
+
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 20% 20%, #11142a 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, #0f2a28 0%, transparent 40%),
+        var(--bg);
+    font-family:JetBrains Mono, monospace;
+    color:var(--text);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.app{
+    width:92%;
+    max-width:1200px;
+    height:86vh;
+    background:linear-gradient(180deg,#0c1020,#070911);
+    border:1px solid var(--border);
+    box-shadow:0 0 40px rgba(124,124,255,.15);
+    display:flex;
+    flex-direction:column;
+}
+
+header{
+    padding:18px 26px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid var(--border);
+}
+
+header h1{
+    margin:0;
+    font-size:18px;
+    letter-spacing:2px;
+    color:#fff;
+}
+
+header span{
+    color:var(--accent2);
+}
+
+.badge{
+    font-size:11px;
+    opacity:.6;
+}
+
+.main{
+    flex:1;
+    display:flex;
+    gap:18px;
+    padding:18px;
+    overflow:hidden;
+}
+
+.panel{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+}
+
+.label{
+    font-size:11px;
+    letter-spacing:1px;
+    margin-bottom:6px;
+    color:var(--accent);
+}
+
+textarea{
+    flex:1;
+    background:#060814;
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:14px;
+    resize:none;
+    outline:none;
+    font-size:12px;
+    font-family: Consolas, Monaco, monospace;
+}
+
+textarea:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 1px rgba(124,124,255,.3);
+}
+
+.controls{
+    padding:16px;
+    border-top:1px solid var(--border);
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+button{
+    background:linear-gradient(135deg,#10163a,#0b0f2a);
+    border:1px solid var(--accent);
+    color:var(--accent);
+    padding:10px 24px;
+    cursor:pointer;
+    letter-spacing:1px;
+    transition:.2s;
+}
+
+button:hover{
+    background:var(--accent);
+    color:#000;
+    box-shadow:0 0 20px rgba(124,124,255,.5);
+}
+
+#toast{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--accent);
+    color:#000;
+    padding:10px 22px;
+    font-size:12px;
+    opacity:0;
+    transition:.3s;
+    pointer-events:none;
+}
+
+#toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+#toast.err{
+    background:var(--danger);
+    color:#fff;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+    <header>
+        <h1>Express <span>OBFUSCATOR</span></h1>
+        <div class="badge">像快递一样包裹你的代码</div>
+    </header>
+
+    <div class="main">
+        <div class="panel">
+            <div class="label">源代码</div>
+            <textarea id="input" placeholder="输入 Lua 代码，例如 print('你好 World')"></textarea>
+        </div>
+        <div class="panel">
+            <div class="label">输出结果</div>
+            <textarea id="output" readonly></textarea>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="obfuscate()">混淆</button>
+        <button onclick="copyOut()">复制</button>
+        <button onclick="download()">下载</button>
+    </div>
+</div>
+
+<div id="toast">操作成功</div>
+
+<script>
+function toast(msg, err){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = err ? 'show err' : 'show';
+    setTimeout(() => t.className = '', 2200);
+}
+
+// 核心修复：使用 TextEncoder 将字符串转为 UTF-8 字节数组
+// 然后转为 \\xNN 格式，确保所有数值都在 0-255 之间
+function toHexBytes(str) {
+    try {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(str);
+        // data 是 Uint8Array，里面的值全是 0-255
+        return Array.from(data).map(b => '\\\\x' + b.toString(16).padStart(2, '0')).join('');
+    } catch (e) {
+        console.error(e);
+        return "";
+    }
+}
+
+function obfuscate(){
+    const src = document.getElementById('input').value;
+    if (!src.trim()) return toast("源代码为空", true);
+
+    const enc = toHexBytes(src);
+
+    if (!enc) return toast("编码失败，浏览器版本可能过低", true);
+
+    // Lua 模板更新：
+    // 1. 步长改为 4 (因为格式是 \xNN)
+    // 2. 使用 table.insert 提高性能，防止长代码卡死
+    // 3. 兼容 loadstring(5.1) 和 load(5.2+)
+    const lua = `
+--[[ Express Obfuscator Runtime ]]
+return (function(...)
+    local _S = "${enc}"
+    local _T = {}
+    local _char = string.char
+    local _tonumber = tonumber
+    local _sub = string.sub
+    local _insert = table.insert
+    
+    -- 解析 16 进制字节流
+    for i = 1, #_S, 4 do
+        local h = _sub(_S, i + 2, i + 3)
+        _insert(_T, _char(_tonumber(h, 16)))
+    end
+    
+    local _O = table.concat(_T)
+    local func = (loadstring or load)(_O)
+    if func then return func(...) end
+end)(...)
+`;
+
+    document.getElementById('output').value = lua.trim();
+    toast("已成功混淆");
+}
+
+function copyOut(){
+    const o = document.getElementById('output');
+    if (!o.value) return toast("没有输出", true);
+    o.select();
+    document.execCommand('copy');
+    toast("已复制");
+}
+
+function download(){
+    const v = document.getElementById('output').value;
+    if (!v) return toast("没有输出", true);
+    const b = new Blob([v]);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(b);
+    a.download = 'obfuscated.lua';
+    a.click();
+}
+</script>
+</body>
+</html>
