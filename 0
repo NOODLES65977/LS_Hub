@@ -1,5 +1,4 @@
 
-
 local a a={cache={}, load=function(b)if not a.cache[b]then a.cache[b]={c=a[b]()}end return a.cache[b].c end}do function a.a()return{
 
 
@@ -4312,34 +4311,6 @@ PaddingLeft=UDim.new(0,4),
 PaddingRight=UDim.new(0,4),
 })
 })
-
--- [[ OPEN BUTTON RAINBOW EFFECT START ]] --
-local btnStroke = ac("UIStroke", {
-    Parent = am,
-    Thickness = 2.5,
-    ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-    Transparency = 0
-})
-local btnGrad = ac("UIGradient", {
-    Parent = btnStroke,
-    Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromHSV(0,1,1)),
-        ColorSequenceKeypoint.new(0.2, Color3.fromHSV(0.2,1,1)),
-        ColorSequenceKeypoint.new(0.4, Color3.fromHSV(0.4,1,1)),
-        ColorSequenceKeypoint.new(0.6, Color3.fromHSV(0.6,1,1)),
-        ColorSequenceKeypoint.new(0.8, Color3.fromHSV(0.8,1,1)),
-        ColorSequenceKeypoint.new(1, Color3.fromHSV(0,1,1))
-    })
-})
-task.spawn(function()
-    local rot = 0
-    while am.Parent do
-        rot = (rot + 3) % 360
-        btnGrad.Rotation = rot
-        task.wait()
-    end
-end)
--- [[ OPEN BUTTON RAINBOW EFFECT END ]] --
 
 ag.Button=am
 
@@ -10442,7 +10413,7 @@ an:Open()
 return an
 end
 
-return ae end function function a.Y()
+return ae end function a.Y()
 local aa=(cloneref or clonereference or function(aa)return aa end)
 
 local ae=aa(game:GetService"UserInputService")
@@ -11230,34 +11201,6 @@ PaddingBottom=UDim.new(0,au.UIPadding),
 })
 })
 })
-
--- [[ WINDOW RAINBOW FLOW START ]] --
-local winStroke = al("UIStroke", {
-    Parent = au.UIElements.Main,
-    Thickness = 3,
-    ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-    Transparency = 0
-})
-local winGrad = al("UIGradient", {
-    Parent = winStroke,
-    Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromHSV(0,1,1)),
-        ColorSequenceKeypoint.new(0.2, Color3.fromHSV(0.2,1,1)),
-        ColorSequenceKeypoint.new(0.4, Color3.fromHSV(0.4,1,1)),
-        ColorSequenceKeypoint.new(0.6, Color3.fromHSV(0.6,1,1)),
-        ColorSequenceKeypoint.new(0.8, Color3.fromHSV(0.8,1,1)),
-        ColorSequenceKeypoint.new(1, Color3.fromHSV(0,1,1))
-    })
-})
-task.spawn(function()
-    local rot = 0
-    while au.UIElements.Main.Parent do
-        rot = (rot + 1.5) % 360
-        winGrad.Rotation = rot
-        task.wait()
-    end
-end)
--- [[ WINDOW RAINBOW FLOW END ]] --
 
 ak.AddSignal(au.UIElements.Main.Main.Topbar.Left:GetPropertyChangedSignal"AbsoluteSize",function()
 local l=0
