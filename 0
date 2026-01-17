@@ -4264,7 +4264,33 @@ Scale=1,
 ac("UICorner",{
 CornerRadius=UDim.new(1,0)
 }),
-ac("UIStroke",{Thickness=2,ApplyStrokeMode="Border",Color=Color3.new(1,1,1),Transparency=0},{ac("UIGradient",{Name="G",Rotation=0,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromHSV(0,1,1)),ColorSequenceKeypoint.new(0.1,Color3.fromHSV(.1,1,1)),ColorSequenceKeypoint.new(0.2,Color3.fromHSV(.2,1,1)),ColorSequenceKeypoint.new(0.3,Color3.fromHSV(.3,1,1)),ColorSequenceKeypoint.new(0.4,Color3.fromHSV(.4,1,1)),ColorSequenceKeypoint.new(0.5,Color3.fromHSV(.5,1,1)),ColorSequenceKeypoint.new(0.6,Color3.fromHSV(.6,1,1)),ColorSequenceKeypoint.new(0.7,Color3.fromHSV(.7,1,1)),ColorSequenceKeypoint.new(0.8,Color3.fromHSV(.8,1,1)),ColorSequenceKeypoint.new(0.9,Color3.fromHSV(.9,1,1)),ColorSequenceKeypoint.new(1,Color3.fromHSV(1,1,1))}})}),
+ac("UIStroke",{
+Thickness=2,
+ApplyStrokeMode="Border",
+Color=Color3.new(1,1,1),
+Transparency=0,
+},{
+(function()
+local g = ac("UIGradient",{
+Color=ColorSequence.new{
+ColorSequenceKeypoint.new(0,Color3.fromHSV(0,1,1)),
+ColorSequenceKeypoint.new(0.2,Color3.fromHSV(0.2,1,1)),
+ColorSequenceKeypoint.new(0.4,Color3.fromHSV(0.4,1,1)),
+ColorSequenceKeypoint.new(0.6,Color3.fromHSV(0.6,1,1)),
+ColorSequenceKeypoint.new(0.8,Color3.fromHSV(0.8,1,1)),
+ColorSequenceKeypoint.new(1,Color3.fromHSV(1,1,1))
+},
+Rotation=0
+})
+task.spawn(function()
+while g.Parent do
+g.Rotation = g.Rotation + 2
+task.wait()
+end
+end)
+return g
+end)()
+}),
 aj,
 ak,
 
@@ -4303,7 +4329,6 @@ PaddingRight=UDim.new(0,4),
 })
 })
 
-task.spawn(function()while am.Parent do local t=game:GetService("TweenService"):Create(am.UIStroke.G,TweenInfo.new(2,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut,-1),{Rotation=360})t:Play()t.Completed:Wait()end end)
 ag.Button=am
 
 
@@ -8003,6 +8028,69 @@ NumberSequenceKeypoint.new(1.0,0.1),
 }
 })
 }),
+
+
+
+
+
+
+
+aD,
+})
+
+local aE=ae("Frame",{
+BackgroundColor3=aw.Default,
+Size=UDim2.fromScale(1,1),
+BackgroundTransparency=0,
+ZIndex=9,
+},{
+ae("UICorner",{
+CornerRadius=UDim.new(0,8),
+}),
+})
+
+ae("ImageLabel",{
+Image="http://www.roblox.com/asset/?id=14204231522",
+ImageTransparency=0.45,
+ScaleType=Enum.ScaleType.Tile,
+TileSize=UDim2.fromOffset(40,40),
+BackgroundTransparency=1,
+Position=UDim2.fromOffset(0,208+aw.TextPadding),
+Size=UDim2.fromOffset(75,24),
+Parent=ay.UIElements.Main,
+},{
+ae("UICorner",{
+CornerRadius=UDim.new(0,8),
+}),
+
+
+
+
+
+
+
+aa.NewRoundFrame(8,"SquircleOutline",{
+ThemeTag={
+ImageColor3="Outline",
+},
+Size=UDim2.new(1,0,1,0),
+ImageTransparency=.85,
+ZIndex=99999,
+},{
+ae("UIGradient",{
+Rotation=60,
+Color=ColorSequence.new{
+ColorSequenceKeypoint.new(0.0,Color3.fromRGB(255,255,255)),
+ColorSequenceKeypoint.new(0.5,Color3.fromRGB(255,255,255)),
+ColorSequenceKeypoint.new(1.0,Color3.fromRGB(255,255,255)),
+},
+Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0.0,0.1),
+NumberSequenceKeypoint.new(0.5,1),
+NumberSequenceKeypoint.new(1.0,0.1),
+}
+})
+}),
 aE,
 })
 
@@ -8158,7 +8246,7 @@ BackgroundTransparency=1,
 C=ae("ImageLabel",{
 Size=UDim2.new(0,14,0,14),
 AnchorPoint=Vector2.new(0.5,0.5),
-Position=UDim2.new(0.5,0,0,0),
+Position=UDim2.new(0.5,0,0.5,0),
 ThemeTag={
 BackgroundColor3="Text",
 },
@@ -10612,8 +10700,6 @@ if au.ScrollBarEnabled then
 ap(au.UIElements.SideBar,au.UIElements.SideBarContainer.Content,au,3)
 end
 
-local UIStroke=al("UIStroke",{Thickness=2,Color=Color3.new(1,1,1),Transparency=0},{al("UIGradient",{Name="BorderGradient",Rotation=0,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.new(0,0,0)),ColorSequenceKeypoint.new(0.5,Color3.new(1,1,1)),ColorSequenceKeypoint.new(1,Color3.new(0,0,0))}})})
-task.spawn(function()while UIStroke.Parent do local t=game:GetService("TweenService"):Create(UIStroke.BorderGradient,TweenInfo.new(3,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut,-1),{Rotation=360})t:Play()t.Completed:Wait()end end)
 
 au.UIElements.MainBar=al("Frame",{
 Size=UDim2.new(1,-au.UIElements.SideBarContainer.AbsoluteSize.X,1,-au.Topbar.Height),
@@ -10992,6 +11078,30 @@ TextSize=16,
 ThemeTag={
 TextColor3="WindowTopbarTitle"
 }
+})
+
+local UIStroke = al("UIStroke", {
+    Thickness = 2,
+    Transparency = 0,
+    Parent = nil 
+}, {
+    (function()
+        local g = al("UIGradient", {
+            Color = ColorSequence.new{
+                ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
+                ColorSequenceKeypoint.new(0.5, Color3.new(0, 0, 0)),
+                ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1))
+            },
+            Rotation = 0
+        })
+        task.spawn(function()
+            while g.Parent do
+                g.Rotation = g.Rotation + 1
+                task.wait()
+            end
+        end)
+        return g
+    end)()
 })
 
 au.UIElements.Main=al("Frame",{
